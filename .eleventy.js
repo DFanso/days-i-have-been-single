@@ -1,6 +1,9 @@
 module.exports = function(eleventyConfig) {
   // Copy CSS to output
   eleventyConfig.addPassthroughCopy("src/css");
+  
+  // Copy favicon
+  eleventyConfig.addPassthroughCopy("favicon.ico");
 
   // Add a filter to calculate days
   eleventyConfig.addFilter("daysSince", function(dateString) {
