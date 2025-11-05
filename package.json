@@ -1,0 +1,28 @@
+{
+  "name": "days-i-have-been-single",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "pnpm exec tailwindcss -i ./src/css/input.css -o ./src/css/styles.css",
+    "watch:css": "pnpm exec tailwindcss -i ./src/css/input.css -o ./src/css/styles.css --watch",
+    "build:eleventy": "pnpm exec eleventy",
+    "watch:eleventy": "pnpm exec eleventy --serve",
+    "build": "pnpm run build:css && pnpm run build:eleventy",
+    "start": "pnpm run build:css && pnpm run watch:eleventy",
+    "dev": "pnpm run build:css && pnpm run watch:eleventy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.16",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.16"
+  }
+}
