@@ -38,7 +38,7 @@ title: Days I've Been Single
                     <div class="my-8 p-6 bg-gray-800/50 border border-gray-700 rounded-lg">
                         <div class="text-center">
                             <div class="text-gray-400 text-sm mb-2">DAYS_SINGLE =</div>
-                            <div class="text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">
+                            <div id="days-counter" class="text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">
                                 {{ dayCount }}
                             </div>
                         </div>
@@ -60,7 +60,7 @@ title: Days I've Been Single
                                 </svg>
                                 <div class="text-xs text-gray-500 uppercase tracking-wider">const hours</div>
                             </div>
-                            <div class="text-2xl font-bold text-cyan-400">{{ dayCount * 24 }}</div>
+                            <div id="hours-counter" class="text-2xl font-bold text-cyan-400">{{ dayCount * 24 }}</div>
                         </div>
                         <div class="bg-gray-800/50 border border-gray-700 rounded p-4 hover:border-blue-500 transition-colors">
                             <div class="flex items-center gap-2 mb-3">
@@ -69,7 +69,7 @@ title: Days I've Been Single
                                 </svg>
                                 <div class="text-xs text-gray-500 uppercase tracking-wider">const minutes</div>
                             </div>
-                            <div class="text-2xl font-bold text-blue-400">{{ dayCount * 1440 }}</div>
+                            <div id="minutes-counter" class="text-2xl font-bold text-blue-400">{{ dayCount * 1440 }}</div>
                         </div>
                         <div class="bg-gray-800/50 border border-gray-700 rounded p-4 hover:border-purple-500 transition-colors">
                             <div class="flex items-center gap-2 mb-3">
@@ -78,14 +78,14 @@ title: Days I've Been Single
                                 </svg>
                                 <div class="text-xs text-gray-500 uppercase tracking-wider">const seconds</div>
                             </div>
-                            <div class="text-2xl font-bold text-purple-400">{{ dayCount * 86400 }}</div>
+                            <div id="seconds-counter" class="text-2xl font-bold text-purple-400">{{ dayCount * 86400 }}</div>
                         </div>
                     </div>
 
                     <!-- Additional Info -->
                     <div class="mt-6 space-y-2 text-sm">
                         <div class="text-gray-500">
-                            <span class="text-gray-600">//</span> That's approximately {{ (dayCount / 7) | round(1) }} weeks or {{ (dayCount / 30.44) | round(1) }} months
+                            <span class="text-gray-600">//</span> That's approximately <span id="weeks-counter">{{ (dayCount / 7) | round(1) }}</span> weeks or <span id="months-counter">{{ (dayCount / 30.44) | round(1) }}</span> months
                         </div>
                     </div>
 
@@ -125,3 +125,36 @@ title: Days I've Been Single
         </div>
     </div>
 </div>
+
+<script>
+    // Start date: April 25, 2024
+    const startDate = new Date('2024-04-25T00:00:00');
+    
+    function updateCounters() {
+        const now = new Date();
+        const diffMs = now - startDate;
+        
+        // Calculate time units
+        const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(diffMs / (1000 * 60 * 60));
+        const minutes = Math.floor(diffMs / (1000 * 60));
+        const seconds = Math.floor(diffMs / 1000);
+        
+        const weeks = (days / 7).toFixed(1);
+        const months = (days / 30.44).toFixed(1);
+        
+        // Update DOM elements
+        document.getElementById('days-counter').textContent = days.toLocaleString();
+        document.getElementById('hours-counter').textContent = hours.toLocaleString();
+        document.getElementById('minutes-counter').textContent = minutes.toLocaleString();
+        document.getElementById('seconds-counter').textContent = seconds.toLocaleString();
+        document.getElementById('weeks-counter').textContent = weeks;
+        document.getElementById('months-counter').textContent = months;
+    }
+    
+    // Update immediately
+    updateCounters();
+    
+    // Update every second
+    setInterval(updateCounters, 1000);
+</script>
