@@ -74,7 +74,7 @@ The site will be available at `http://localhost:3000`
 
 Edit the date in two places in `src/index.njk`:
 1. Line 6: `{% set startDate = "2024-04-25" %}`
-2. Line 118: `const startDate = new Date('2024-04-25T00:00:00');`
+2. Line 142: `const startDate = new Date('2024-04-25T00:00:00');`
 
 ### Customize Colors
 
