@@ -1,7 +1,7 @@
 {
   "name": "days-i-have-been-single",
   "version": "1.0.0",
-  "description": "",
+  "description": "A minimalist, terminal-style single-page website that displays a real-time counter showing how many days you've been single. Built with Eleventy and Tailwind CSS.",
   "main": "index.js",
   "scripts": {
     "build:css": "tailwindcss -i ./src/css/input.css -o ./src/css/styles.css --minify",
@@ -12,8 +12,21 @@
     "start": "pnpm run build:css && pnpm run watch:eleventy",
     "dev": "pnpm run build:css && pnpm run watch:eleventy"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "eleventy",
+    "11ty",
+    "tailwindcss",
+    "static-site",
+    "counter",
+    "terminal",
+    "minimalist",
+    "single-page",
+    "real-time",
+    "vanilla-javascript",
+    "static-site-generator",
+    "web-design"
+  ],
+  "author": "dfanso",
   "license": "ISC",
   "packageManager": "pnpm@10.14.0",
   "dependencies": {
