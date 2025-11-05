@@ -29,9 +29,9 @@ title: Days I've Been Single
 
                 <!-- Output -->
                 <div class="space-y-4 text-gray-300">
-                    <div class="flex items-center gap-2">
-                        <span class="text-gray-500">[INFO]</span>
-                        <span>Calculating days since breakup...</span>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="text-gray-500 text-sm md:text-base">[INFO]</span>
+                        <span class="text-sm md:text-base">Calculating days since breakup...</span>
                         <span class="inline-block w-2 h-4 bg-green-400 animate-pulse"></span>
                     </div>
 
@@ -85,7 +85,7 @@ title: Days I've Been Single
                     <!-- Additional Info -->
                     <div class="mt-6 space-y-2 text-sm">
                         <div class="text-gray-500">
-                            <span class="text-gray-600">//</span> That's approximately <span id="weeks-counter">{{ (dayCount / 7) | round(1) }}</span> weeks or <span id="months-counter">{{ (dayCount / 30.44) | round(1) }}</span> months
+                            <span class="text-gray-600">//</span> That's approximately <span id="weeks-counter">{{ (dayCount / 7) | round(1) }}</span> weeks, <span id="months-counter">{{ (dayCount / 30.44) | round(1) }}</span> months, or <span id="years-counter">{{ (dayCount / 365.25) | round(1) }}</span> years
                         </div>
                     </div>
 
@@ -142,6 +142,7 @@ title: Days I've Been Single
         
         const weeks = (days / 7).toFixed(1);
         const months = (days / 30.44).toFixed(1);
+        const years = (days / 365.25).toFixed(1);
         
         // Update DOM elements
         document.getElementById('days-counter').textContent = days.toLocaleString();
@@ -150,6 +151,7 @@ title: Days I've Been Single
         document.getElementById('seconds-counter').textContent = seconds.toLocaleString();
         document.getElementById('weeks-counter').textContent = weeks;
         document.getElementById('months-counter').textContent = months;
+        document.getElementById('years-counter').textContent = years;
     }
     
     // Update immediately
