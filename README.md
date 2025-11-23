@@ -67,6 +67,16 @@ The site will be available at `http://localhost:3000`
 - **[Eleventy](https://www.11ty.dev/)** - Static site generator
 - **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
 - **Vanilla JavaScript** - No frameworks, just pure JS
+- **[Vercel Analytics](https://vercel.com/analytics)** - Web analytics
+
+## Analytics
+
+This project includes Vercel Analytics for tracking page views and user interactions. Analytics is automatically enabled when deployed to Vercel. For other hosting platforms, the analytics script is included via CDN and will work once the site is deployed.
+
+To view analytics data:
+1. Deploy your site to Vercel
+2. Visit your Vercel dashboard
+3. Navigate to the Analytics tab for your project
 
 ## Customization
 
