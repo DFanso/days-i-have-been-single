@@ -3,7 +3,7 @@ layout: base.njk
 title: Days I've Been Single
 ---
 
-{% set startDate = "2024-04-25" %}
+{% set startDate = "2025-04-25" %}
 {% set dayCount = startDate | daysSince %}
 
 <div class="min-h-screen flex items-center justify-center p-6">
@@ -21,25 +21,68 @@ title: Days I've Been Single
             </div>
 
             <!-- Terminal Content -->
-            <div class="p-8 md:p-12 font-mono text-left space-y-6">
-                <!-- Command Line -->
-                {# <div class="text-green-400">
-                    <span class="text-blue-400">$</span> ./calculate-single-days.sh
-                </div> #}
+            <div class="p-4 sm:p-8 md:p-12 font-mono text-left space-y-6">
+                <!-- Configuration Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <!-- Date Input Block -->
+                    <div class="bg-gray-800/50 border border-gray-700 rounded p-4 hover:border-green-500 transition-colors group relative overflow-hidden">
+                        <div class="flex items-center gap-2 mb-2 relative z-10">
+                            <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <div class="text-xs text-gray-500 uppercase tracking-wider font-mono">const start_date</div>
+                        </div>
+                        <div class="relative z-10">
+                            <input 
+                                type="date" 
+                                id="date-input" 
+                                onchange="saveDateParts()" 
+                                class="w-full bg-transparent text-xl font-bold text-green-400 focus:outline-none [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-50 [&::-webkit-calendar-picker-indicator]:hover:opacity-100 cursor-pointer font-mono"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Time Input Block -->
+                    <div class="bg-gray-800/50 border border-gray-700 rounded p-4 hover:border-blue-500 transition-colors group relative overflow-hidden">
+                        <div class="flex items-center gap-2 mb-2 relative z-10">
+                            <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <div class="text-xs text-gray-500 uppercase tracking-wider font-mono">const start_time</div>
+                        </div>
+                        <div class="relative z-10">
+                            <input 
+                                type="time" 
+                                id="time-input" 
+                                onchange="saveDateParts()" 
+                                class="w-full bg-transparent text-xl font-bold text-blue-400 focus:outline-none [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-50 [&::-webkit-calendar-picker-indicator]:hover:opacity-100 cursor-pointer font-mono"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mb-8">
+                    <button onclick="resetToNow()" class="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white text-sm font-mono rounded-lg border border-gray-700 transition-all shadow-lg hover:shadow-cyan-500/20">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        <span>Reset to Now</span>
+                    </button>
+                </div>
 
                 <!-- Output -->
                 <div class="space-y-4 text-gray-300">
                     <div class="my-8 p-6 bg-gray-800/50 border border-gray-700 rounded-lg">
                         <div class="text-center">
                             <div class="text-gray-400 text-sm mb-2">DAYS_SINGLE =</div>
-                            <div id="days-counter" class="text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">
+                            <div id="days-counter" class="text-4xl sm:text-6xl md:text-8xl font-bold text-green-400">
                                 {{ dayCount }}
                             </div>
                         </div>
                     </div>
 
                     <!-- Stats Grid -->
-                    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         <div class="bg-gray-800/50 border border-gray-700 rounded p-4 hover:border-cyan-500 transition-colors">
                             <div class="flex items-center gap-2 mb-3">
                                 <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,14 +125,14 @@ title: Days I've Been Single
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <span>Status: Still going strong</span>
+                            <span id="status-text">Status: Still going strong</span>
                         </div>
                     </div>
 
                     <!-- Prompt -->
                     <div class="text-green-400 flex items-center">
                         <span class="text-blue-400">$</span>
-                        <span class="inline-block w-2 h-4 bg-green-400 ml-1 animate-pulse"></span>
+                        <span class="inline-block w-2 h-4 bg-green-400 ml-1 animate-blink"></span>
                     </div>
                 </div>
             </div>
@@ -138,8 +181,52 @@ title: Days I've Been Single
 </div>
 
 <script>
-    // Start date: April 25, 2024
-    const startDate = new Date('2024-04-25T00:00:00');
+    // Start date: Default or from LocalStorage
+    let startDate = new Date();
+    
+    const savedDate = localStorage.getItem('singleStartDate');
+    if (savedDate) {
+        startDate = new Date(savedDate);
+    }
+
+    // Initialize inputs
+    const dateInput = document.getElementById('date-input');
+    const timeInput = document.getElementById('time-input');
+    const pad = (n) => n < 10 ? '0' + n : n;
+
+    const updateInputDisplay = () => {
+        if (dateInput && timeInput) {
+            const year = startDate.getFullYear();
+            const month = pad(startDate.getMonth() + 1);
+            const day = pad(startDate.getDate());
+            const hours = pad(startDate.getHours());
+            const minutes = pad(startDate.getMinutes());
+            
+            dateInput.value = `${year}-${month}-${day}`;
+            timeInput.value = `${hours}:${minutes}`;
+        }
+    };
+    
+    // Call on load
+    updateInputDisplay();
+
+    function saveDateParts() {
+        const dVal = document.getElementById('date-input').value;
+        const tVal = document.getElementById('time-input').value;
+        
+        if (dVal && tVal) {
+            startDate = new Date(`${dVal}T${tVal}`);
+            localStorage.setItem('singleStartDate', startDate.toISOString());
+            updateCounters();
+        }
+    }
+    
+    function resetToNow() {
+        startDate = new Date();
+        localStorage.setItem('singleStartDate', startDate.toISOString());
+        updateInputDisplay();
+        updateCounters();
+    }
     
     function updateCounters() {
         const now = new Date();
@@ -163,6 +250,33 @@ title: Days I've Been Single
         document.getElementById('weeks-counter').textContent = weeks;
         document.getElementById('months-counter').textContent = months;
         document.getElementById('years-counter').textContent = years;
+        
+        updateStatus(days);
+    }
+    
+    function updateStatus(days) {
+        const statusElement = document.getElementById('status-text');
+        let status = "Status: Just started";
+        
+        if (days > 1825) { // 5 years
+            status = "Status: Ascended Being (5+ Years)";
+        } else if (days > 1095) { // 3 years
+            status = "Status: Monk Mode Activated (3+ Years)";
+        } else if (days > 730) { // 2 years
+            status = "Status: Legendary Solo Player (2+ Years)";
+        } else if (days > 365) { // 1 year
+            status = "Status: Master of My Destiny (1+ Year)";
+        } else if (days > 180) { // 6 months
+            status = "Status: Independent & Thriving (6+ Months)";
+        } else if (days > 90) { // 3 months
+            status = "Status: Finding Inner Peace (3+ Months)";
+        } else if (days > 30) { // 1 month
+            status = "Status: Getting Used To It (1+ Month)";
+        } else if (days > 7) { // 1 week
+            status = "Status: Freshly Single (1+ Week)";
+        }
+        
+        statusElement.textContent = status;
     }
     
     // Update immediately
