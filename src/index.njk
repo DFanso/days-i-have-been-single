@@ -3,7 +3,7 @@ layout: base.njk
 title: Days I've Been Single
 ---
 
-{% set startDate = "2024-04-25" %}
+{% set startDate = "2025-04-25" %}
 {% set dayCount = startDate | daysSince %}
 
 <div class="min-h-screen flex items-center justify-center p-6">
@@ -22,10 +22,14 @@ title: Days I've Been Single
 
             <!-- Terminal Content -->
             <div class="p-8 md:p-12 font-mono text-left space-y-6">
-                <!-- Command Line -->
-                {# <div class="text-green-400">
-                    <span class="text-blue-400">$</span> ./calculate-single-days.sh
-                </div> #}
+                <!-- Command Line / Configuration -->
+                <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6 p-3 bg-gray-800/30 rounded border border-gray-700/50">
+                    <div class="flex items-center gap-2 text-green-400 shrink-0">
+                        <span class="text-blue-400">$</span>
+                        <span>start-date</span>
+                    </div>
+                    <input type="datetime-local" id="start-date-input" onchange="saveDate()" class="bg-gray-900 text-cyan-400 border border-gray-600 rounded px-3 py-1 text-sm font-mono focus:outline-none focus:border-cyan-500 w-full sm:w-auto">
+                </div>
 
                 <!-- Output -->
                 <div class="space-y-4 text-gray-300">
@@ -138,8 +142,37 @@ title: Days I've Been Single
 </div>
 
 <script>
-    // Start date: April 25, 2024
-    const startDate = new Date('2024-04-25T00:00:00');
+    // Start date: Default or from LocalStorage
+    let startDate = new Date();
+    
+    const savedDate = localStorage.getItem('singleStartDate');
+    if (savedDate) {
+        startDate = new Date(savedDate);
+    }
+
+    // Initialize input with current start date
+    const dateInput = document.getElementById('start-date-input');
+    if (dateInput) {
+        const pad = (n) => n < 10 ? '0' + n : n;
+        const updateInputDisplay = () => {
+            const year = startDate.getFullYear();
+            const month = pad(startDate.getMonth() + 1);
+            const day = pad(startDate.getDate());
+            const hours = pad(startDate.getHours());
+            const minutes = pad(startDate.getMinutes());
+            dateInput.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+        };
+        updateInputDisplay();
+    }
+
+    function saveDate() {
+        const inputVal = document.getElementById('start-date-input').value;
+        if (inputVal) {
+            startDate = new Date(inputVal);
+            localStorage.setItem('singleStartDate', startDate.toISOString());
+            updateCounters();
+        }
+    }
     
     function updateCounters() {
         const now = new Date();
