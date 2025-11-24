@@ -125,7 +125,7 @@ title: Days I've Been Single
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <span>Status: Still going strong</span>
+                            <span id="status-text">Status: Still going strong</span>
                         </div>
                     </div>
 
@@ -250,6 +250,33 @@ title: Days I've Been Single
         document.getElementById('weeks-counter').textContent = weeks;
         document.getElementById('months-counter').textContent = months;
         document.getElementById('years-counter').textContent = years;
+        
+        updateStatus(days);
+    }
+    
+    function updateStatus(days) {
+        const statusElement = document.getElementById('status-text');
+        let status = "Status: Just started";
+        
+        if (days > 1825) { // 5 years
+            status = "Status: Ascended Being (5+ Years)";
+        } else if (days > 1095) { // 3 years
+            status = "Status: Monk Mode Activated (3+ Years)";
+        } else if (days > 730) { // 2 years
+            status = "Status: Legendary Solo Player (2+ Years)";
+        } else if (days > 365) { // 1 year
+            status = "Status: Master of My Destiny (1+ Year)";
+        } else if (days > 180) { // 6 months
+            status = "Status: Independent & Thriving (6+ Months)";
+        } else if (days > 90) { // 3 months
+            status = "Status: Finding Inner Peace (3+ Months)";
+        } else if (days > 30) { // 1 month
+            status = "Status: Getting Used To It (1+ Month)";
+        } else if (days > 7) { // 1 week
+            status = "Status: Freshly Single (1+ Week)";
+        }
+        
+        statusElement.textContent = status;
     }
     
     // Update immediately
