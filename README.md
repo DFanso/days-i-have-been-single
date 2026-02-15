@@ -1,10 +1,10 @@
-# Days I've Been Single
+# Days I Was Single
 
-A minimalist, terminal-style single-page website that displays a real-time counter showing how many days you've been single. Built with Eleventy and Tailwind CSS, featuring a sleek terminal aesthetic with live-updating counters.
+A minimalist, terminal-style single-page website that displayed a real-time counter showing how many days I was single. The timer has been **stopped** — it ran from April 25, 2024 to February 7, 2026 (653 days). Built with Eleventy and Tailwind CSS, featuring a sleek terminal aesthetic.
 
 ## Features
 
-- **Real-time Counter**: Automatically updates every second with days, hours, minutes, and seconds
+- **Frozen Counter**: Final count locked at 653 days, with confetti celebration
 - **Terminal UI**: Beautiful terminal-inspired design with syntax highlighting aesthetics
 - **Responsive Design**: Fully responsive and mobile-friendly
 - **Additional Stats**: Shows weeks, months, and years equivalent
@@ -31,14 +31,16 @@ cd days-i-have-been-single
 pnpm install
 ```
 
-3. Update the start date in `src/index.njk`:
+3. The timer is currently stopped at February 7, 2026. To modify dates, edit `src/index.njk`:
 ```njk
 {% set startDate = "2024-04-25" %}
+{% set endDate = "2026-02-07" %}
 ```
 
 And in the JavaScript section:
 ```javascript
 const startDate = new Date('2024-04-25T00:00:00');
+const endDate = new Date('2026-02-07T12:00:00');
 ```
 
 4. Build the project:
@@ -80,11 +82,11 @@ To view analytics data:
 
 ## Customization
 
-### Change the Start Date
+### Change the Dates
 
-Edit the date in two places in `src/index.njk`:
-1. Line 6: `{% set startDate = "2024-04-25" %}`
-2. Line 142: `const startDate = new Date('2024-04-25T00:00:00');`
+The timer is frozen with a start and end date. Edit in `src/index.njk`:
+1. Nunjucks variables: `{% set startDate = "2024-04-25" %}` and `{% set endDate = "2026-02-07" %}`
+2. JavaScript: `const startDate = new Date('2024-04-25T00:00:00');` and `const endDate = new Date('2026-02-07T12:00:00');`
 
 ### Customize Colors
 
