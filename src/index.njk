@@ -32,9 +32,71 @@ title: Days I Was Single
     .heartbeat {
         animation: heartbeat 1.5s ease-in-out infinite;
     }
+
+    /* Party popper burst effect */
+    @keyframes emoji-burst {
+        0% {
+            transform: scale(0) rotate(0deg);
+            opacity: 0;
+        }
+        15% {
+            transform: scale(1.4) rotate(20deg);
+            opacity: 1;
+        }
+        30% {
+            transform: scale(1) rotate(-10deg);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(0.6) rotate(360deg) translateY(60vh);
+            opacity: 0;
+        }
+    }
+    @keyframes emoji-pop {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+        40% {
+            transform: scale(1.6);
+            opacity: 1;
+        }
+        60% {
+            transform: scale(0.9);
+            opacity: 1;
+        }
+        75% {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(0.5);
+            opacity: 0;
+        }
+    }
+    #emoji-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        pointer-events: none;
+        overflow: hidden;
+    }
+    #emoji-splash .emoji-particle {
+        position: absolute;
+        font-size: 2rem;
+        line-height: 1;
+        animation-fill-mode: forwards;
+    }
+    #emoji-splash .emoji-burst {
+        animation: emoji-burst ease-out forwards;
+    }
+    #emoji-splash .emoji-pop {
+        animation: emoji-pop ease-out forwards;
+    }
 </style>
 
 <div class="confetti" id="confetti-container"></div>
+<div id="emoji-splash"></div>
 
 <div class="min-h-screen flex items-center justify-center p-6">
     <div class="max-w-4xl w-full">
@@ -194,7 +256,7 @@ title: Days I Was Single
     document.getElementById('months-counter').textContent = months;
     document.getElementById('years-counter').textContent = years;
 
-    // Confetti celebration
+    // Confetti celebration (colored squares)
     const container = document.getElementById('confetti-container');
     const colors = ['#f472b6', '#fb7185', '#f43f5e', '#e879f9', '#c084fc', '#60a5fa', '#34d399'];
     for (let i = 0; i < 40; i++) {
@@ -208,8 +270,46 @@ title: Days I Was Single
         container.appendChild(span);
     }
 
-    // Stop confetti after a while
+    // Party popper emoji splash
+    const splash = document.getElementById('emoji-splash');
+    const emojis = ['\u{1F389}', '\u{1F389}', '\u{1F389}', '\u{1F38A}', '\u{2764}\uFE0F', '\u{1F496}', '\u{2728}', '\u{1F973}'];
+    const animations = ['emoji-burst', 'emoji-pop'];
+    let totalEmojis = 0;
+
+    function spawnEmoji() {
+        const el = document.createElement('div');
+        el.className = 'emoji-particle ' + animations[Math.floor(Math.random() * animations.length)];
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = (Math.random() * 90 + 5) + '%';
+        el.style.top = (Math.random() * 70 + 10) + '%';
+        el.style.fontSize = (Math.random() * 2 + 1.5) + 'rem';
+        el.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        splash.appendChild(el);
+        el.addEventListener('animationend', () => el.remove());
+    }
+
+    function burstWave(count) {
+        for (let i = 0; i < count; i++) {
+            setTimeout(() => spawnEmoji(), Math.random() * 400);
+        }
+    }
+
+    // Initial big burst
+    burstWave(15);
+
+    // Follow-up waves
+    const waveInterval = setInterval(() => {
+        totalEmojis++;
+        if (totalEmojis >= 8) {
+            clearInterval(waveInterval);
+            return;
+        }
+        burstWave(Math.floor(Math.random() * 6) + 4);
+    }, 1200);
+
+    // Clean up everything after 12s
     setTimeout(() => {
         container.style.display = 'none';
-    }, 10000);
+        splash.style.display = 'none';
+    }, 12000);
 </script>
